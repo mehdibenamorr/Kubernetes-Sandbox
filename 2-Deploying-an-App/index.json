@@ -17,7 +17,7 @@
 			"code": "foreground.sh",
 			"text": "step1.md"
 		}, {
-			"title": "Step 2 Show the app in the terminal",
+			"title": "Step 2 Make sure all dependencies are available",
 			"text": "step2.md"
 		}, {
 			"title": "Step 3 View the container logs",
