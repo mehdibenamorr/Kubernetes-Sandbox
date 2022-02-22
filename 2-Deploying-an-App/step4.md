@@ -25,7 +25,7 @@ spec:
 
 To update the changes, simply re-apply this manifest file.
 
-`kubectl apply -f labelstudio-service.yaml` {{execute}}
+`kubectl apply -f labelstudio-service.yaml`{{execute}}
 
 `curl $(minikube ip):$30001`{{execute}}
 

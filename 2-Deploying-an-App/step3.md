@@ -48,7 +48,7 @@ spec:
             claimName: postgres-pv-claim
 </pre>
 
-`kubectl apply -f postgresql.yaml` {{execute}}
+`kubectl apply -f postgresql.yaml`{{execute}}
 
 We next need to create a service (ClusterIP type) to provide reliable networking (Cluster-IP Addr, Port) for the database within the cluster.
 
@@ -68,7 +68,7 @@ spec:
    app: postgresql
 </pre>
 
-`kubectl apply -f postgresql-service.yaml` {{execute}}
+`kubectl apply -f postgresql-service.yaml`{{execute}}
 
 ### Label Studio Deployment
 
@@ -95,7 +95,7 @@ spec:
     spec:
       containers:
       - name: labelstudio-container
-        image: registry.gitlab.pads.fim.uni-passau.de/padas-research-projects/rp-21-smaegbot-bmel/label-studio/label-studio:latest
+        image: heartexlabs/label-studio:latest
         command: ["./deploy/docker-entrypoint.sh"]
         args: ["label-studio"]
         envFrom:
@@ -104,11 +104,9 @@ spec:
         ports:
           - name: server
             containerPort: 8080
-      imagePullSecrets:
-        - name: gitlab-registry-secret
 </pre>
 
-`kubectl apply -f labelstudio.yaml` {{execute}}
+`kubectl apply -f labelstudio.yaml`{{execute}}
 
 Create a service to provide the networking:
 
@@ -126,7 +124,7 @@ spec:
     app: labelstudio
 </pre>
 
-`kubectl apply -f labelstudio-service.yaml` {{execute}}
+`kubectl apply -f labelstudio-service.yaml`{{execute}}
 
 ### Debugging, Logging, ...
 
@@ -140,7 +138,7 @@ Pods wtih `get pods` command:
 
 `kubectl get pods -n label-studio`{{execute}}
 
-Services with `get services` {{execute}}
+Services with `get services`{{execute}}
 
 `kubectl get services -n label-studio`{{execute}}
 
@@ -158,7 +156,7 @@ We see here details about the Pod’s container: IP address, the ports used and 
 
 *Note: the describe command can be used to get detailed information about most of the kubernetes primitives: node, pods, deployments. The describe output is designed to be human readable, not to be scripted against.*
 
-`kubectl describe deployment.apps/postgres -n label-studio` {{execute}}
+`kubectl describe deployment.apps/postgres -n label-studio`{{execute}}
 
 We can retrieve logs from a pod using the `kubectl logs` command:
 

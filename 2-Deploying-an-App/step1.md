@@ -13,8 +13,8 @@ metadata:
   name: label-studio
 </pre>
 
-`kubectl apply -f namespace.yaml` {{execute}}
+`kubectl apply -f namespace.yaml`{{execute}}
 
-`kubectl get namespaces` {{execute}} 
+`kubectl get namespaces`{{execute}} 
 
 To check that the namespace is created.

@@ -26,7 +26,9 @@ spec:
       storage: 1Gi
 </pre>
 
-This would the claim for the PostgreSQL.
+This would create the claim for the PostgreSQL.
+
+`kubectl apply -f pvc.yaml`{{execute}}
 
 We can have multiple resource definitions in the same manifest file by separating them with "---". 
 
@@ -91,6 +93,8 @@ data:
   LABEL_STUDIO_HOST: http://localhost:3200
   LABEL_STUDIO_COPY_STATIC_DATA: "false"
 </pre>
+
+`kubectl apply -f config.yaml`{{execute}}
 
 The **LABEL_STUDIO_HOST** needs to be changed in the step where we try to expose the app to the public internet with the same hostname used in the definition of the Nginx server.
 
