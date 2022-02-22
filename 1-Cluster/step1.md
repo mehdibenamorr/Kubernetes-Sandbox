@@ -4,6 +4,8 @@ Minikube is already installed for you. Check that it is properly installed, by r
 
 OK, we can see that minikube is in place.
 
+To install minikube locally and follow this tutorial on your machine, please refer to this [link](https://k8s-docs.netlify.app/en/docs/tasks/tools/install-minikube/).
+
 Start the cluster, by running the *minikube start* command:
 
 `minikube start`{{execute}}

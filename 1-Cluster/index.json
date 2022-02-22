@@ -1,6 +1,6 @@
 {
 	"pathwayTitle": "Kubernetes Sandbox",
-	"title": "Module 1 - Start a Kubernetes cluster with MiniKube",
+	"title": "Tutorial 1 - Start a Kubernetes cluster with MiniKube",
 	"description": "Create a Kubernetes cluster",
 	"backend": {
 		"port": 30000,

@@ -1,5 +1,5 @@
 {
-	"title": "Module 2 - Deploy a web application and a DB (Label Studio)",
+	"title": "Tutorial 2 - Deploy a web application and a DB (Label Studio)",
 	"description": "Deploying a web application with a postgreSQL database",
 	"pathwayTitle": "Kubernetes Sandbox",
 	"backend": {
@@ -9,7 +9,9 @@
 	"environment": {
 		"uilayout": "vscode-terminal-split",
 		"hideintro": false,
-		"hidefinish": false
+		"hidefinish": false,
+		"showdashboard": true,
+    	"dashboards": [{"name": "NODE_IP:NODE_PORT", "port": "[[NODE_PORT]]"}]
 	},
 	"details": {
 		"steps": [{
@@ -24,6 +26,7 @@
 			"text": "step3.md"
 		}, {
 			"title": "Step 4 Exposing the application publicly ",
+			"code": "ingress.sh",
 			"text": "step4.md"
 		}],
 		"intro": {
@@ -33,6 +36,5 @@
 		"finish": {
 			"text": "finish.md"
 		}
-	},
-	"embedded_survey_url": "https://docs.google.com/forms/d/e/1FAIpQLScMbLRAbaZ8NleOFYRrepdIwCbhClHK3abu3SgzMn1KT_H5iA/viewform?entry.434419381="
+	}
 }

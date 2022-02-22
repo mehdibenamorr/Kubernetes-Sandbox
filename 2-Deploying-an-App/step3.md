@@ -16,7 +16,7 @@ metadata:
     app: postgresql # Label is used as selector in the service.
 </pre>
 
-The next part of the manifest file is where we define the number of replicas, selector, containers, and volumes under **spec** or specification:
+The next part of the manifest file is where we define the number of replicas, selector, containers, and volumes under **spec** or specification. We are using the docker image postgres:11.5 for the main container.
 
 <pre class="file" data-filename="postgresql.yaml" data-target="append">
 spec:
@@ -72,7 +72,7 @@ spec:
 
 ### Label Studio Deployment
 
-Similar to the database, deploying Label Studio 
+Similar to the database, deploying Label Studio with their published docker image [heartexlabs/label-studio:latest](https://hub.docker.com/r/heartexlabs/label-studio).
 
 <pre class="file" data-filename="labelstudio.yaml" data-target="replace">
 apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1

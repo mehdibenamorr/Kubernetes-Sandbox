@@ -18,7 +18,6 @@ spec:
   ports:
     - port: 3200
       targetPort: 8080
-      nodePort: 30001 # 30000-32767, Optional field
   selector:
     app: labelstudio
 </pre>
@@ -27,7 +26,10 @@ To update the changes, simply re-apply this manifest file.
 
 `kubectl apply -f labelstudio-service.yaml`{{execute}}
 
-`curl $(minikube ip):$30001`{{execute}}
+`export NODE_PORT=$(kubectl get services/labelstudio-service -o go-template='{{(index .spec.ports 0).nodePort}}')
+echo NODE_PORT=$NODE_PORT`{{execute}}
+
+`curl -v $(minikube ip):$NODE_PORT`{{execute}}
 
 And we get a response from the server. The Service is exposed.
 
