@@ -1,5 +1,5 @@
 {
-	"title": "Tutorial 2 - Deploy an NLP model with streamlit and Kubernetes",
+	"title": "Tutorial 3 - Deploy an NLP model with streamlit and Kubernetes",
 	"description": "Deploying your model to production as a service with streamlit and Kubernetes",
 	"pathwayTitle": "Kubernetes Sandbox",
 	"backend": {

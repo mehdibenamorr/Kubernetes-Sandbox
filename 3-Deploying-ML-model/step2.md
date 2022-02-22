@@ -57,7 +57,7 @@ metadata:
 type: Opaque
 data:
   accesskey: "MUlZQTBENUZYTTlOUENRUThCQTE="
-  secretkey: "ZXRnK1U0MUh5bFM1dnRJQUpQK0kyUHlubWhMNUJrSENQc3kyN3Racg===="
+  secretkey: "ZXRnK1U0MUh5bFM1dnRJQUpQK0kyUHlubWhMNUJrSENQc3kyN3Racg=="
 </pre>
 
 `kubectl apply -f secret.yaml`{{execute}}

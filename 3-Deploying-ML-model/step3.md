@@ -83,7 +83,7 @@ This container is simply a minimum debian system with miniconda3 that installs t
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: postgres-pv-claim
+            claimName: model-pvc
 </pre>
 
 `kubectl apply -f deployment.yaml`{{execute}}
