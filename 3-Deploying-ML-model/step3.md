@@ -156,7 +156,7 @@ We see here details about the Pod’s container: IP address, the ports used and 
 
 *Note: the describe command can be used to get detailed information about most of the kubernetes primitives: node, pods, deployments. The describe output is designed to be human readable, not to be scripted against.*
 
-`kubectl describe deployment.apps/postgres-db -n label-studio`{{execute}}
+`kubectl describe deployment.apps/postgres -n label-studio`{{execute}}
 
 We can retrieve logs from a pod using the `kubectl logs` command:
 

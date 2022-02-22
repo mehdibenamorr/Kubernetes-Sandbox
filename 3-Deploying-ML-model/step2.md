@@ -89,14 +89,14 @@ data:
   POSTGRE_USER: admin
   POSTGRE_PASSWORD: CrrBAXP7NzYz59de
   POSTGRE_PORT: "5432"
-  POSTGRE_HOST: postgres-svc.label-studio.svc.cluster.local
-  #LABEL_STUDIO_HOST: https://label-studio.infra-workshop.uni-passau.de
+  POSTGRE_HOST: postgres.label-studio.svc.cluster.local
+  LABEL_STUDIO_HOST: http://localhost:3200
   LABEL_STUDIO_COPY_STATIC_DATA: "false"
 </pre>
 
 `kubectl apply -f config.yaml`{{execute}}
 
-The **LABEL_STUDIO_HOST** needs to be changed in the step where we try to expose the app to the public internet with the same hostname defined in Ingress.
+The **LABEL_STUDIO_HOST** needs to be changed in the step where we try to expose the app to the public internet with the same hostname used in the definition of the Nginx server.
 
 ``` yaml
 LABEL_STUDIO_HOST = https://label-studio.infra-workshop.uni-passau.de

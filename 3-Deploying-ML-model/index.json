@@ -20,10 +20,10 @@
 			"title": "Step 2 Make sure all dependencies are available",
 			"text": "step2.md"
 		}, {
-			"title": "Step 3 Deploying DB and Label Studio",
+			"title": "Step 3 View the container logs",
 			"text": "step3.md"
 		}, {
-			"title": "Step 4 Exposing the application publicly ",
+			"title": "Step 4 Executing command on the container ",
 			"text": "step4.md"
 		}],
 		"intro": {
