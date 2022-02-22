@@ -1,8 +1,10 @@
-Let’s deploy our first app Label Studio on Kubernetes. Label Studio is an open source annotation tool written in Python with ReactJS for its frontend. It uses a Database in the backend to store project data and configuration information. 
+Let’s deploy our first app Label Studio on Kubernetes. Label Studio is an open source annotation tool written in Python with ReactJS for its frontend. 
+
+It uses a Database in the backend to store project data and configuration information. 
 
 This would a good first example on how to deploy an application with different components.
 
-First step as always would be to create a new namespace,
+First step as always would be to create a new namespace. Copy this text into a yaml file.
 
 <pre class="file" data-filename="namespace.yaml" data-target="replace">
 apiVersion: v1
@@ -14,4 +16,5 @@ metadata:
 `kubectl apply -f namespace.yaml` {{execute}}
 
 `kubectl get namespaces` {{execute}} 
-We can check that the namespace is created.
+
+To check that the namespace is created.

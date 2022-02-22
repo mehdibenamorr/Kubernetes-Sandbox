@@ -1,7 +1,7 @@
 {
-	"title": "Module 3 - Explore your app",
-	"description": "Explore your app",
-	"pathwayTitle": "Kubernetes Bootcamp",
+	"title": "Module 2 - Deploy a web application and a DB (Label Studio)",
+	"description": "Deploying a web application with a postgreSQL database",
+	"pathwayTitle": "Kubernetes Sandbox",
 	"backend": {
 		"port": 30000,
 		"imageid": "minikube-running:1.20"
