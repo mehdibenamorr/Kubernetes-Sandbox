@@ -42,8 +42,9 @@ The next part of the manifest file is where we define the init container which w
           microdnf install wget tar --nodocs;
           microdnf clean all;
           sleep 5;
-          /usr/bin/mc config host add share https://console.share.pads.fim.uni-passau.de $MINIO_ACCESSKEY $MINIO_SECRETKEY;
-          /usr/bin/mc cp share/public/workshop_demo/ML_Model/classifier /data/;
+          /usr/bin/mc alias set share https://share.pads.fim.uni-passau.de $MINIO_ACCESSKEY $MINIO_SECRETKEY;
+          /usr/bin/mc cp -r share/public/Infrastructure_Workshop/ML_Model/classifier/pytorch_model.pt /data/pytorch_model.pt;
+          /usr/bin/mc cp -r share/public/Infrastructure_Workshop/ML_Model/classifier/classes.txt /data/classes.txt;
           exit 0;
         volumeMounts:
             - mountPath: /data
@@ -64,26 +65,26 @@ The next part of the manifest file is where we define the init container which w
 **Main Container**
 
 This container is simply a minimum debian system with miniconda3 that installs the required python libraries and start serving the Streamlit server.
+We first need to dockerize 
 
 <pre class="file" data-filename="deployment.yaml" data-target="append">
       containers:
       - name: model-container
-        image: continuumio/miniconda3:latest
-        command: ["/bin/sh", "-c"]
-        args: 
-        - cd /data;
-          pip install -r requirements.txt;
-          streamlit run deploy_model.py --server.port 8500 
+        image: registry.gitlab.pads.fim.uni-passau.de/padim/infrastruktur/it-infrastructure/model-app:latest
+        command: ["streamlit", "run"]
+        args: ["deploy_model.py"]
         volumeMounts:
             - mountPath: /data
               name: data
         ports:
           - name: server
-            containerPort: 8500
+            containerPort: 8501
       volumes:
         - name: data
           persistentVolumeClaim:
             claimName: model-pvc
+      imagePullSecrets:
+        - name: gitlab-registry-secret
 </pre>
 
 `kubectl apply -f deployment.yaml`{{execute}}

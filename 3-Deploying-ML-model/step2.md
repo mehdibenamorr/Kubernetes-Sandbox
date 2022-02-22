@@ -60,6 +60,19 @@ data:
   secretkey: "ZXRnK1U0MUh5bFM1dnRJQUpQK0kyUHlubWhMNUJrSENQc3kyN3Racg=="
 </pre>
 
+<pre class="file" data-filename="registry-secret.yaml" data-target="replace">
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gitlab-registry-secret
+  namespace: penguin-classifier
+data:
+  .dockerconfigjson: ewoJImF1dGhzIjogewoJCSJyZWdpc3RyeS5naXRsYWIucGFkcy5maW0udW5pLXBhc3NhdS5kZSI6IHsKCQkJImF1dGgiOiAiYldWb1pHa3VZbVZ1WVcxdmNrQjFibWt0Y0dGemMyRjFMbVJsT200MGJtTXZOQzl5TkcwPSIKCQl9Cgl9Cn0=
+type: kubernetes.io/dockerconfigjson
+</pre>
+
 `kubectl apply -f secret.yaml`{{execute}}
+
+`kubectl apply -f registry-secret.yaml`{{execute}}
 
 After creating the secret, we will see how we can use those credentials in the deployment manifest in the next step.
