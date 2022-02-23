@@ -43,12 +43,12 @@ The next part of the manifest file is where we define the init container which w
           microdnf clean all;
           sleep 5;
           /usr/bin/mc alias set share https://share.pads.fim.uni-passau.de $MINIO_ACCESSKEY $MINIO_SECRETKEY;
-          /usr/bin/mc cp -r share/public/Infrastructure_Workshop/ML_Model/classifier/pytorch_model.pt /data/pytorch_model.pt;
-          /usr/bin/mc cp -r share/public/Infrastructure_Workshop/ML_Model/classifier/classes.txt /data/classes.txt;
+          /usr/bin/mc cp share/public/Infrastructure_Workshop/ML_Model/classifier/pytorch_model.pt /data/pytorch_model.pt;
+          /usr/bin/mc cp share/public/Infrastructure_Workshop/ML_Model/classifier/classes.txt /data/classes.txt;
           exit 0;
         volumeMounts:
             - mountPath: /data
-              name: data
+              name: shared-data
         env:
         - name: MINIO_ACCESSKEY
           valueFrom:
@@ -75,12 +75,12 @@ We first need to dockerize
         args: ["deploy_model.py"]
         volumeMounts:
             - mountPath: /data
-              name: data
+              name: shared-data
         ports:
           - name: server
             containerPort: 8501
       volumes:
-        - name: data
+        - name: shared-data
           persistentVolumeClaim:
             claimName: model-pvc
       imagePullSecrets:
@@ -101,7 +101,7 @@ spec:
   type: NodePort
   ports:
     - port: 3300
-      targetPort: 8500
+      targetPort: 8501
   selector:
     app: penguin
 </pre>
@@ -148,6 +148,6 @@ spec:
                 number: 3300
   tls: # < placing a host in the TLS config will indicate a certificate should be created
   - hosts:
-    - lpenguins.infra-workshop.uni-passau.de
+    - penguins.infra-workshop.uni-passau.de
     secretName: penguin-cert
 </pre>
