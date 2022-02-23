@@ -109,7 +109,7 @@ spec:
 
 `kubectl apply -f model-service.yaml`{{execute}}
 
-`export NODE_PORT=$(kubectl get services/classifier-service -o go-template='{{(index .spec.ports 0).nodePort}}')
+`export NODE_PORT=$(kubectl get services/classifier-service -n penguin-classifier -o go-template='{{(index .spec.ports 0).nodePort}}')
 echo NODE_PORT=$NODE_PORT`{{execute}}
 
 `curl -v $(minikube ip):$NODE_PORT`{{execute}}
