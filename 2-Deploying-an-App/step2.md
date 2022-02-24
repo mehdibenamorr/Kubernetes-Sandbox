@@ -39,7 +39,7 @@ However, it's possible by using the **ConfigMap** resource in the data field.
 
 For example, if we have a config json file we want mount in our deployment. Then the ConfigMap would be defined with,
 
-``` yaml
+<pre>
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -52,7 +52,7 @@ data:
     {
         "param_key" : "value"
     }
-```
+</pre>
 
 Back to our usecase, for both deployment we need to define some environment variables.
 
@@ -98,9 +98,9 @@ data:
 
 The **LABEL_STUDIO_HOST** needs to be changed in the step where we try to expose the app to the public internet with the same hostname defined in Ingress.
 
-``` yaml
-LABEL_STUDIO_HOST = https://label-studio.infra-workshop.uni-passau.de
-```
+<pre>
+  LABEL_STUDIO_HOST = https://label-studio.infra-workshop.uni-passau.de
+</pre>
 
 ### Secrets
 A better way to define config files or env variables in a more secure way (i.e Admin credentials,) is the use of the **Secret** resource.

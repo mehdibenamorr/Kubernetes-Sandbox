@@ -10,7 +10,7 @@ To explain briefly how Streamlit works, let's go over the code bit by bit.
 
 **Function that implements the upload functionality of the web app.**
 
-``` python
+<pre>
 import io
 from PIL import Image
 import streamlit as st
@@ -28,11 +28,11 @@ def load_image():
         return Image.open(io.BytesIO(image_data))
     else:
         return None
-```
+</pre>
 
 **Loading the model and the classes**
 
-``` python
+<pre>
 def load_model(model_path):
     model = torch.load(model_path, map_location='cpu')
     model.eval()
@@ -42,11 +42,11 @@ def load_labels(labels_file):
     with open(labels_file, "r") as f:
         categories = [s.strip() for s in f.readlines()]
         return categories
-```
+</pre>
 
 **The inference function that takes the input image and return ranked scores for all the classes**
 
-``` python
+<pre>
 def predict(model, categories, image):
     preprocess = transforms.Compose([
         transforms.Resize(256),
@@ -65,11 +65,11 @@ def predict(model, categories, image):
     all_prob, all_catid = torch.topk(probabilities, len(categories))
     for i in range(all_prob.size(0)):
         st.write(categories[all_catid[i]], all_prob[i].item())
-```
+</pre>
 
 **The main function of the app**
 
-``` python
+<pre>
 def main():
     st.title('Custom model demo')
     model = load_model(MODEL_PATH)
@@ -79,6 +79,6 @@ def main():
     if result:
         st.write('Calculating results...')
         predict(model, categories, image)
-```
+</pre>
 
 In the next step, we will deploy the this model in the cluster.
