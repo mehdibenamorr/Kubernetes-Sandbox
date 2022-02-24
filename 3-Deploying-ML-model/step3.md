@@ -38,13 +38,12 @@ The next part of the manifest file is where we define the init container which w
         image: minio/mc
         command: ["/bin/sh", "-c"]
         args:
-        - microdnf update --nodocs;
-          microdnf install wget tar --nodocs;
-          microdnf clean all;
-          sleep 5;
-          /usr/bin/mc alias set share https://share.pads.fim.uni-passau.de $MINIO_ACCESSKEY $MINIO_SECRETKEY;
+        - /usr/bin/mc alias set share https://share.pads.fim.uni-passau.de $MINIO_ACCESSKEY $MINIO_SECRETKEY;
           /usr/bin/mc cp share/public/Infrastructure_Workshop/ML_Model/classifier/pytorch_model.pt /data/pytorch_model.pt;
+          /usr/bin/mc cp share/public/Infrastructure_Workshop/ML_Model/classifier/requirements.txt /data/requirements.txt;
           /usr/bin/mc cp share/public/Infrastructure_Workshop/ML_Model/classifier/classes.txt /data/classes.txt;
+          /usr/bin/mc cp share/public/Infrastructure_Workshop/ML_Model/classifier/deploy_model.py /data/deploy_model.py;
+          /usr/bin/mc cp share/public/Infrastructure_Workshop/ML_Model/classifier/entrypoint.sh /data/entrypoint.sh;
           exit 0;
         volumeMounts:
             - mountPath: /data
@@ -65,14 +64,25 @@ The next part of the manifest file is where we define the init container which w
 **Main Container**
 
 This container is simply a minimum debian system with miniconda3 that installs the required python libraries and start serving the Streamlit server.
-We first need to dockerize 
+
+We wrote a bash script that would be executed when the container is created. Similar to ENTRYPOINT in docker.
+
+<pre class="file" data-filename="entrypoint.sh">
+#! /bin/bash
+pip install -r /data/requirements.txt
+streamlit run /data/deploy_model.py 
+</pre>
 
 <pre class="file" data-filename="deployment.yaml" data-target="append">
       containers:
       - name: model-container
         image: registry.gitlab.pads.fim.uni-passau.de/padim/infrastruktur/it-infrastructure/model-app:latest
-        command: ["streamlit", "run"]
-        args: ["deploy_model.py"]
+        image: continuumio/miniconda3
+        imagePullPolicy: Always
+        command: ["/bin/sh", "-c"]
+        args: 
+        - chmod +x /data/entrypoint.sh;
+          ./data/entrypoint.sh;
         volumeMounts:
             - mountPath: /data
               name: shared-data
@@ -83,8 +93,6 @@ We first need to dockerize
         - name: shared-data
           persistentVolumeClaim:
             claimName: model-pvc
-      imagePullSecrets:
-        - name: gitlab-registry-secret
 </pre>
 
 `kubectl apply -f deployment.yaml`{{execute}}
@@ -119,35 +127,3 @@ And we get a response from the server. The Service is exposed.
 Let's see what is running in the 
 
 `kubectl get all -n penguin-classifier`{{execute}}
-
-### Ingress
-
-<pre class="file" data-filename="ingress.yaml" data-target="replace">
-# Ingress configuration
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: classifier-ingress
-  namespace: penguin-classifier
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
-    ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: penguins.infra-workshop.uni-passau.de
-    http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: model-service
-              port:
-                number: 3300
-  tls: # < placing a host in the TLS config will indicate a certificate should be created
-  - hosts:
-    - penguins.infra-workshop.uni-passau.de
-    secretName: penguin-cert
-</pre>

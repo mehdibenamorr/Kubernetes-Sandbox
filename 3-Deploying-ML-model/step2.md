@@ -64,4 +64,3 @@ data:
 
 After creating the secret, we will see how we can use those credentials in the deployment manifest in the next step.
 
-You need to dockerize your model and push the image to your private docker registry.
